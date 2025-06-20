@@ -1,0 +1,84 @@
+[project]
+name = "profile-scraping-mcp"
+version = "1.0.0"
+description = "Fast MCP server for LinkedIn profile scraping and enrichment"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    {name = "Profile Scraping Team", email = "team@example.com"}
+]
+keywords = ["mcp", "profile-scraping", "linkedin", "data-mining", "contact-enrichment"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "fastmcp>=1.0.0",           # Fast MCP framework
+    "mcp>=1.9.4",               # MCP protocol
+    "pydantic>=2.0.0",          # Data validation
+    "httpx>=0.24.0",            # HTTP client
+    "beautifulsoup4>=4.12.0",   # Web scraping
+    "pandas>=2.0.0",            # Data manipulation
+    "python-dotenv>=1.0.0",     # Environment variables
+    "loguru>=0.7.0",            # Enhanced logging
+    "aiofiles>=23.0.0",         # Async file operations
+    "tenacity>=8.0.0",          # Retry mechanisms
+    "ratelimit>=2.2.0",         # Rate limiting
+    "openai>=1.0.0",            # OpenAI API
+    "google-generativeai>=0.3.0", # Gemini API
+    "requests>=2.31.0",         # HTTP requests
+    "lxml>=4.9.0",              # XML processing
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+]
+
+[project.scripts]
+profile-scraping-mcp = "src.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
