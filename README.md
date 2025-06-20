@@ -28,25 +28,97 @@ A comprehensive Fast MCP server for LinkedIn profile scraping, enrichment, and A
 
 ### Setup
 
+#### Quick Installation (Recommended)
+
 1. **Clone and navigate to the project:**
 ```bash
 cd profile-scraping-mcp
 ```
 
-2. **Install dependencies:**
+2. **Run the automated build and install script:**
 ```bash
+python scripts/build_and_install.py
+```
+
+This script will automatically:
+- Check Python version compatibility
+- Clean previous build artifacts
+- Try multiple installation methods
+- Test the installation
+- Provide next steps
+
+#### Manual Installation
+
+If the automated script fails, try these methods:
+
+**Method 1: Hatchling (Recommended)**
+```bash
+# Install build tools
+pip install --upgrade build hatchling setuptools wheel
+
+# Build and install
+python -m build
 pip install -e .
 ```
 
-3. **Configure environment:**
+**Method 2: Setuptools**
+```bash
+python setup.py develop
+```
+
+**Method 3: Direct Requirements**
+```bash
+pip install -r requirements.txt
+# Note: You may need to manually add src/ to PYTHONPATH
+export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+```
+
+#### Post-Installation Setup
+
+3. **Test installation:**
+```bash
+python scripts/test_install.py
+```
+
+4. **Configure environment:**
 ```bash
 cp .env.example .env
 # Edit .env with your API keys and configuration
 ```
 
-4. **Create data directory:**
+5. **Create data directory:**
 ```bash
 mkdir -p data
+```
+
+6. **Validate setup:**
+```bash
+python scripts/run_server.py --validate-keys
+```
+
+#### Troubleshooting Installation
+
+If you encounter build issues:
+
+1. **Check Python version:**
+```bash
+python --version  # Should be 3.11+
+```
+
+2. **Upgrade pip and build tools:**
+```bash
+pip install --upgrade pip setuptools wheel build hatchling
+```
+
+3. **Clear cache and retry:**
+```bash
+pip cache purge
+python scripts/build_and_install.py
+```
+
+4. **Install minimal dependencies:**
+```bash
+pip install fastmcp pydantic httpx beautifulsoup4 loguru python-dotenv
 ```
 
 ## Configuration

@@ -51,6 +51,22 @@ profile-scraping-mcp = "src.server:main"
 
 [build-system]
 requires = ["hatchling"]
+# Hatchling build configuration
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests", 
+    "/scripts",
+    "/.env.example",
+    "/README.md",
+    "/pyproject.toml",
+]
+
+[tool.hatch.version]
+path = "src/__init__.py"
 build-backend = "hatchling.build"
 
 [tool.black]
